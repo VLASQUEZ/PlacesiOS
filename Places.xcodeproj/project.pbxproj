@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		60731B431FDCCF6400E9A471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60731B421FDCCF6400E9A471 /* MapKit.framework */; };
 		60731B451FDCD09300E9A471 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60731B441FDCD09300E9A471 /* MapViewController.swift */; };
+		607D005B20424E9D00FB3C0D /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */; };
 		60C884D21FD799E20029A256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884D11FD799E20029A256 /* AppDelegate.swift */; };
 		60C884D41FD799E20029A256 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884D31FD799E20029A256 /* ViewController.swift */; };
 		60C884D71FD799E20029A256 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C884D51FD799E20029A256 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		60731B421FDCCF6400E9A471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		60731B441FDCD09300E9A471 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
 		60C884CE1FD799E20029A256 /* Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Places.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C884D11FD799E20029A256 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60C884D31FD799E20029A256 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				60C884DD1FD799E20029A256 /* Info.plist */,
 				60C884EB1FD79C9B0029A256 /* Place.swift */,
 				60731B441FDCD09300E9A471 /* MapViewController.swift */,
+				607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */,
 			);
 			path = Places;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				60C884E41FD79C230029A256 /* PlaceCell.swift in Sources */,
 				60C884EA1FD79C740029A256 /* PlaceDetailViewCell.swift in Sources */,
 				60C884D41FD799E20029A256 /* ViewController.swift in Sources */,
+				607D005B20424E9D00FB3C0D /* AddPlaceViewController.swift in Sources */,
 				60C884E91FD79C740029A256 /* ReviewViewController.swift in Sources */,
 				60C884D21FD799E20029A256 /* AppDelegate.swift in Sources */,
 				60C884EC1FD79C9B0029A256 /* Place.swift in Sources */,
