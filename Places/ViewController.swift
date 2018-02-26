@@ -7,14 +7,46 @@
 //
 
 import UIKit
-
+import CoreData
 class ViewController: UITableViewController {
     var places : [Place] = []
+    var fetchResultsController : NSFetchedResultsController<Place>!
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        let fetchRequest : NSFetchRequest<Place> = NSFetchRequest(entityName: "Place")
+        let sortDesc = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDesc]
+        
+        if let container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer{
+            let context = container.viewContext
+            self.fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            self.fetchResultsController.delegate = self
+            
+            do{
+                try fetchResultsController.performFetch()
+                self.places = fetchResultsController.fetchedObjects!
+            }
+            catch{
+                print("Error: " + error.localizedDescription)
+            }
+        }
+        
+        
+        /*if let container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer{
+            let context = container.viewContext
+            //Traer datos de la entidad con Core Data
+            let fetchRequest : NSFetchRequest<Place> = NSFetchRequest(entityName: "Place")
+            //let fetchRequest : NSFetchRequest<Place> = Place.fetchRequest()
+            do{
+                self.places = try context.fetch(fetchRequest)
+            }catch{
+                print("Ha ocurrido un error " + error.localizedDescription )
+            }
+        }*/
         // Do any additional setup after loading the view, typically from a nib.
-        var place = Place(name: "AlexanderPlatz", type: "Plaza", location: "10178 Berlín, Alemania", image: #imageLiteral(resourceName: "alexanderplatz"),phone : "5555555", website: "https://www.disfrutaberlin.com/alexanderplatz")
+        /*var place = Place(name: "AlexanderPlatz", type: "Plaza", location: "10178 Berlín, Alemania", image: #imageLiteral(resourceName: "alexanderplatz"),phone : "5555555", website: "https://www.disfrutaberlin.com/alexanderplatz")
         places.append(place);
         place = Place(name: "Atomium", type: "Museo", location: "1020 Bruxelles, Belgica", image: #imageLiteral(resourceName: "atomium"),phone:"España:+34 518 900 112" ,website:"https://www.bruselas.net/atomium")
         places.append(place)
@@ -29,7 +61,7 @@ class ViewController: UITableViewController {
         place = Place(name: "Torre de Pisa", type: "Monumento", location: "Piazza del Duomo, 56126 Pisa PI, Italia", image:#imageLiteral(resourceName: "torrepisa"), phone: "+39 050 835011/12", website: "http://www.opapisa.it/")
         places.append(place)
         place = Place(name: "La seu de Mallorca", type: "Catedral", location: "Plaza Almoina, s/n, 07001 Palma, Illes Balears, España", image:#imageLiteral(resourceName: "mallorca"), phone: "info@catedraldemallorca.org", website: "http://catedraldemallorca.org/")
-        places.append(place)
+        places.append(place)*/
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,7 +87,7 @@ class ViewController: UITableViewController {
         let cellId = "PlaceCell"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PlaceCell
-        cell.recipeImg.image = place.image
+        cell.recipeImg.image = UIImage(data: place.image! as Data)
         cell.recipeName.text = place.name
         cell.recipeTime.text = place.type
         cell.recipeIngredientes.text = place.location
@@ -66,25 +98,38 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+   /* override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete){
             self.places.remove(at: indexPath.row)
         }
-        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top)
-    }
+        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+    }*/
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        //FUNCION DE COMPARTIR
         let shareAction = UITableViewRowAction(style: .default, title: "Compartir") { (action, indexPath) in
             let shareDefaultText = "Estoy visitando el lugar \(self.places[indexPath.row].name)"
-            let activityController = UIActivityViewController(activityItems:[shareDefaultText], applicationActivities: nil)
+            let activityController = UIActivityViewController(activityItems:[shareDefaultText,UIImage(data: self.places[indexPath.row].image! as Data!)], applicationActivities: nil)
             
             self.present(activityController, animated: true, completion: nil)
         }
         shareAction.backgroundColor = UIColor.init(red: 30.0/255.0, green: 164.0/255.0, blue: 253.0/255.0, alpha: 1.0)
-        //Borrar
+        
+        //FUNCION DE BORRAR
         let deleteAction = UITableViewRowAction(style: .default, title: "Eliminar") { (action, indexPath) in
-            self.places.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top)
+            /*self.places.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)*/
+            if let container = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer{
+                let context = container.viewContext
+                let placeToDelete = self.fetchResultsController.object(at: indexPath)
+                context.delete(placeToDelete)
+                do{
+                    try context.save()
+                }
+                catch{
+                    print ("Error al borrar " + error.localizedDescription)
+                }
+            }
             
             
         }
@@ -110,7 +155,47 @@ class ViewController: UITableViewController {
         }
     }
     @IBAction func unwindToViewController(segue: UIStoryboardSegue){
+        //Obtener datos de un viewController a otro por medio de segues
         
+        if segue.identifier == "unwindToViewController"{
+            if let addPlaceVC = segue.source as? AddPlaceViewController{
+                if let newPlace = addPlaceVC.place {
+                    self.places.append(newPlace)
+                }
+
+            }
+        }
+    }
+}
+
+extension ViewController : NSFetchedResultsControllerDelegate{
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+            case .insert:
+                if let newIndexPath = newIndexPath{
+                    self.tableView.insertRows(at: [newIndexPath], with: .fade)
+                }
+            case .delete:
+                if let indexPath = indexPath {
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            case .update:
+                if let indexPath = indexPath{
+                    self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+            case .move:
+                if let indexPath = indexPath, let newIndexPath = newIndexPath{
+                    self.tableView.moveRow(at: indexPath, to: newIndexPath)
+            }
+            //Casting a array del modelo con el fin de informarlo
+            self.places = controller.fetchedObjects as! [Place]
+        }
+    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
     }
 }
 

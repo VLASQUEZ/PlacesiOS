@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602374D020438C8E006BEE43 /* Places.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 602374CE20438C8E006BEE43 /* Places.xcdatamodeld */; };
 		60731B431FDCCF6400E9A471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60731B421FDCCF6400E9A471 /* MapKit.framework */; };
 		60731B451FDCD09300E9A471 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60731B441FDCD09300E9A471 /* MapViewController.swift */; };
 		607D005B20424E9D00FB3C0D /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */; };
+		60AF63CD2043A88E00AE9569 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884EB1FD79C9B0029A256 /* Place.swift */; };
 		60C884D21FD799E20029A256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884D11FD799E20029A256 /* AppDelegate.swift */; };
 		60C884D41FD799E20029A256 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884D31FD799E20029A256 /* ViewController.swift */; };
 		60C884D71FD799E20029A256 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C884D51FD799E20029A256 /* Main.storyboard */; };
@@ -19,10 +21,10 @@
 		60C884E81FD79C740029A256 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884E51FD79C740029A256 /* DetailViewController.swift */; };
 		60C884E91FD79C740029A256 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884E61FD79C740029A256 /* ReviewViewController.swift */; };
 		60C884EA1FD79C740029A256 /* PlaceDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884E71FD79C740029A256 /* PlaceDetailViewCell.swift */; };
-		60C884EC1FD79C9B0029A256 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C884EB1FD79C9B0029A256 /* Place.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		602374CF20438C8E006BEE43 /* Places.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Places.xcdatamodel; sourceTree = "<group>"; };
 		60731B421FDCCF6400E9A471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		60731B441FDCD09300E9A471 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				60C884EB1FD79C9B0029A256 /* Place.swift */,
 				60731B441FDCD09300E9A471 /* MapViewController.swift */,
 				607D005A20424E9D00FB3C0D /* AddPlaceViewController.swift */,
+				602374CE20438C8E006BEE43 /* Places.xcdatamodeld */,
 			);
 			path = Places;
 			sourceTree = "<group>";
@@ -175,14 +178,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C884E41FD79C230029A256 /* PlaceCell.swift in Sources */,
+				602374D020438C8E006BEE43 /* Places.xcdatamodeld in Sources */,
 				60C884EA1FD79C740029A256 /* PlaceDetailViewCell.swift in Sources */,
 				60C884D41FD799E20029A256 /* ViewController.swift in Sources */,
 				607D005B20424E9D00FB3C0D /* AddPlaceViewController.swift in Sources */,
 				60C884E91FD79C740029A256 /* ReviewViewController.swift in Sources */,
 				60C884D21FD799E20029A256 /* AppDelegate.swift in Sources */,
-				60C884EC1FD79C9B0029A256 /* Place.swift in Sources */,
 				60C884E81FD79C740029A256 /* DetailViewController.swift in Sources */,
 				60731B451FDCD09300E9A471 /* MapViewController.swift in Sources */,
+				60AF63CD2043A88E00AE9569 /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +371,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		602374CE20438C8E006BEE43 /* Places.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				602374CF20438C8E006BEE43 /* Places.xcdatamodel */,
+			);
+			currentVersion = 602374CF20438C8E006BEE43 /* Places.xcdatamodel */;
+			path = Places.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 60C884C61FD799E20029A256 /* Project object */;
 }

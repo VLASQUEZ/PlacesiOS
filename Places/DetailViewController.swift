@@ -22,12 +22,12 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.recipeTableView.estimatedRowHeight = 44.0
         self.recipeTableView.rowHeight = UITableViewAutomaticDimension
-        self.placeImageView.image = self.place.image
+        self.placeImageView.image = UIImage(data: self.place.image! as Data)
         self.recipeTableView.backgroundColor = UIColor(red:0.9, green:0.9, blue:0.9, alpha: 0.25)
         self.recipeTableView.tableFooterView = UIView(frame: CGRect.zero)
         self.recipeTableView.separatorColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.6)
         self.title = place.name
-        let image = UIImage(named: self.place.rating)
+        let image = UIImage(named: self.place.rating!)
         self.ratingButton.setImage(image, for: .normal)
         // Do any additional setup after loading the view.
     }
@@ -116,7 +116,7 @@ extension DetailViewController : UITableViewDataSource{
         if let reviewVC = segue.source as? ReviewViewController{
             if let rating = reviewVC.ratingSelected{
                 self.place.rating = rating
-                let image = UIImage(named: self.place.rating)
+                let image = UIImage(named: self.place.rating!)
                 self.ratingButton.setImage(image, for: .normal)
             }
         }
